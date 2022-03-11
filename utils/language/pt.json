@@ -1,0 +1,8 @@
+{
+    "TOKEN_EXPIRED": "Seu token expirou",
+    "SIGNATURE_MATCH": "A assinatura do token não corresponde",
+    "INVALID_TOKEN": "Seu token não é válido",
+    "BODY_INVALID": "Corpo de solicitação inválido",
+    "ERROR_REQUEST": "Erro na preparação do pedido",
+    "ERROR_BODY_RESPONSE": "Erro en el procesamiento de transformacion del cuerpo de la solicitud"
+}

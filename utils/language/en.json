@@ -1,0 +1,8 @@
+{
+    "TOKEN_EXPIRED": "Your token has expired",
+    "SIGNATURE_MATCH": "Token signature does not match",
+    "INVALID_TOKEN": "Your token is not valid",
+    "BODY_INVALID": "Invalid request body",
+    "ERROR_REQUEST": "Error in the preparation of the request",
+    "ERROR_BODY_RESPONSE": "Error in processing of response body transformation"
+}
