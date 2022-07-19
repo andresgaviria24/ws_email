@@ -3,7 +3,7 @@ module ws_notifications_email
 go 1.12
 
 require (
-	github.com/andresgaviria24/gmailgo v0.0.0-20220715071541-cffadb5915f5
+	github.com/andresgaviria24/gmailgo v0.0.0-20220719034414-ea68629c5974
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-playground/validator/v10 v10.10.1 // indirect
