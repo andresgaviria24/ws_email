@@ -5,6 +5,8 @@ github.com/andresgaviria24/gmailgo v0.0.0-20220310012601-713401ee9e33 h1:Welvvrk
 github.com/andresgaviria24/gmailgo v0.0.0-20220310012601-713401ee9e33/go.mod h1:WsjbxcrRnnv5GHKbFTRWjeTgjyQiNI8tbPQ6NI5ciLM=
 github.com/andresgaviria24/gmailgo v0.0.0-20220310133434-4f21699b8bd7 h1:QV31VZU4cKk8j9Mmq+3rOPSKFiVme4aGpOgQcCW3mlQ=
 github.com/andresgaviria24/gmailgo v0.0.0-20220310133434-4f21699b8bd7/go.mod h1:WsjbxcrRnnv5GHKbFTRWjeTgjyQiNI8tbPQ6NI5ciLM=
+github.com/andresgaviria24/gmailgo v0.0.0-20220715071541-cffadb5915f5 h1:P9aq+h5wgKT9jqgNQKFc5krJBYgL2dIjuTNAybWCjwA=
+github.com/andresgaviria24/gmailgo v0.0.0-20220715071541-cffadb5915f5/go.mod h1:WsjbxcrRnnv5GHKbFTRWjeTgjyQiNI8tbPQ6NI5ciLM=
 github.com/cockroachdb/apd v1.1.0 h1:3LFP3629v+1aKXU5Q37mxmRxX/pIu1nijXydLShEq5I=
 github.com/cockroachdb/apd v1.1.0/go.mod h1:8Sl8LxpKi29FqWXR16WEFZRNSz3SoPzUzeMeY4+DwBQ=
 github.com/coreos/go-systemd v0.0.0-20190321100706-95778dfbb74e/go.mod h1:F5haX7vjVVG0kc13fIWeqUViNPyEJxv/OmvnBo0Yme4=
