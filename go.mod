@@ -3,7 +3,6 @@ module ws_notifications_email
 go 1.12
 
 require (
-	github.com/andresgaviria24/gmailgo v0.0.0-20220719034414-ea68629c5974
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-playground/validator/v10 v10.10.1 // indirect
@@ -15,12 +14,13 @@ require (
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/lib/pq v1.10.4 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
-	github.com/mercadolibre/golang-restclient v0.0.0-20170701022150-51958130a0a0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
+	github.com/newrelic/go-agent/v3 v3.17.0
+	github.com/newrelic/go-agent/v3/integrations/nrgin v1.1.2
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/sendgrid/rest v2.6.9+incompatible // indirect
-	github.com/sendgrid/sendgrid-go v3.11.1+incompatible // indirect
+	github.com/sendgrid/sendgrid-go v3.11.1+incompatible
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/ugorji/go v1.2.7 // indirect
 	golang.org/x/crypto v0.0.0-20220307211146-efcb8507fb70 // indirect

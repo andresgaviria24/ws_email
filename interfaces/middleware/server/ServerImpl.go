@@ -8,6 +8,8 @@ import (
 	"ws_notifications_email/interfaces/middleware"
 
 	"github.com/gin-gonic/gin"
+	nrgin "github.com/newrelic/go-agent/v3/integrations/nrgin"
+	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 type ServerImpl struct {
@@ -16,7 +18,14 @@ type ServerImpl struct {
 
 func InitServer() Server {
 	serverImpl := &ServerImpl{}
+
+	app, _ := newrelic.NewApplication(
+		newrelic.ConfigAppName("ws_email"),
+		newrelic.ConfigLicense(os.Getenv("NEW_RELIC_LICENSE_KEY")),
+	)
+
 	router := gin.Default()
+	router.Use(nrgin.Middleware(app))
 	router.Use(middleware.CORSMiddleware())
 	application.InitController(router)
 	serverImpl.router = router
