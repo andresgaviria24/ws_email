@@ -2,6 +2,7 @@ package service
 
 import (
 	"log"
+	"os"
 	"strings"
 	"ws_notifications_email/domain/dto"
 	"ws_notifications_email/domain/entity"
@@ -9,7 +10,7 @@ import (
 	"ws_notifications_email/infrastructure/repository"
 	"ws_notifications_email/utils"
 
-	gmailgo "github.com/andresgaviria24/gmailgo"
+	"github.com/mercadolibre/golang-restclient/rest"
 )
 
 const (
@@ -19,7 +20,7 @@ const (
 
 type ServiceImpl struct {
 	emailRepository repository.EmailRepository
-	emailsConfs     *gmailgo.EmailService
+	//emailsConfs     *gmailgo.EmailService
 }
 
 func InitServiceImpl() *ServiceImpl {
@@ -29,17 +30,16 @@ func InitServiceImpl() *ServiceImpl {
 	}
 	return &ServiceImpl{
 		emailRepository: dbHelper.EmailRepository,
-		emailsConfs:     dbHelper.EmailsConfs,
 	}
 }
 
 func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 
-	cd.emailsConfs.Email.Body = email.Body
-	cd.emailsConfs.Email.AddRecipients(email.To...)
-	cd.emailsConfs.Email.Subject = email.Subject
+	emailsTo := strings.Join(email.To, ";")
 
-	err := cd.emailsConfs.Email.Send(cd.emailsConfs.Auth)
+	response := rest.Post(os.Getenv("API_URL")+"?apikey="+os.Getenv("API_KEY")+"&subject="+
+		email.Subject+"&from="+os.Getenv("MAIL_USER")+"&fromName="+os.Getenv("MAIL_NAME")+"&to="+
+		emailsTo+"&bodyHtml="+email.Body, nil)
 
 	log := entity.Log{
 		To:      strings.Join(email.To, ";"),
@@ -50,10 +50,10 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 		Subject: email.Subject,
 	}
 
-	if err != nil {
+	if response.Err != nil {
 
 		log.Status = ERROR
-		log.Error = err.Error()
+		log.Error = response.Err.Error()
 
 		cd.emailRepository.Log(log)
 

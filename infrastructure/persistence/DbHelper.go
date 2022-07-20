@@ -5,7 +5,6 @@ import (
 	"os"
 	"time"
 
-	gmailgo "github.com/andresgaviria24/gmailgo"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -16,7 +15,6 @@ import (
 type DbHelper struct {
 	EmailRepository repository.EmailRepository
 	emailLogDb      *gorm.DB
-	EmailsConfs     *gmailgo.EmailService
 }
 
 func InitDbHelper() (*DbHelper, error) {
@@ -46,26 +44,5 @@ func InitDbHelper() (*DbHelper, error) {
 	return &DbHelper{
 		EmailRepository: &EmailRepositoryImpl{emailLogDb},
 		emailLogDb:      emailLogDb,
-		EmailsConfs:     AuthGmail(),
 	}, nil
-}
-
-func AuthGmail() *gmailgo.EmailService {
-
-	a := gmailgo.Email{
-		From:        os.Getenv("MAIL_USER"),
-		Password:    os.Getenv("MAIL_PASS"),
-		Name:        os.Getenv("MAIL_NAME"),
-		ContentType: "text/html; charset=utf-8",
-	}
-
-	auth, err := a.Auth()
-	if err != nil {
-		return nil
-	}
-
-	return &gmailgo.EmailService{
-		Auth:  auth,
-		Email: &a,
-	}
 }
