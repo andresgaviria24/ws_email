@@ -39,7 +39,7 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 
 	response := rest.Post(os.Getenv("API_URL")+"?apikey="+os.Getenv("API_KEY")+"&subject="+
 		email.Subject+"&from="+os.Getenv("MAIL_USER")+"&fromName="+os.Getenv("MAIL_NAME")+"&to="+
-		emailsTo+"&bodyHtml="+email.Body, nil)
+		emailsTo+"&bodyHtml='"+email.Body+"'", nil)
 
 	log := entity.Log{
 		To:      strings.Join(email.To, ";"),
