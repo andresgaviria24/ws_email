@@ -1,6 +1,7 @@
 package service
 
 import (
+	"encoding/base64"
 	"fmt"
 	"log"
 	"os"
@@ -11,6 +12,7 @@ import (
 	"ws_notifications_email/infrastructure/repository"
 	"ws_notifications_email/utils"
 
+	"github.com/google/uuid"
 	"github.com/sendgrid/sendgrid-go"
 	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
@@ -64,7 +66,17 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 
 	from := mail.NewEmail(os.Getenv("MAIL_NAME"), os.Getenv("MAIL_USER"))
 	content := mail.NewContent("text/html", email.Body)
-
+	if len(email.AttachBase64) > 0 {
+		attachment := mail.NewAttachment()
+		attachment.SetContent(base64.StdEncoding.EncodeToString([]byte(email.AttachBase64)))
+		attachment.SetType("application/pdf")
+		if len(email.NameAttach) > 0 {
+			email.NameAttach = uuid.New().String()
+		}
+		attachment.SetFilename(email.NameAttach + ".pdf")
+		attachment.SetDisposition("attachment")
+		m.AddAttachment(attachment)
+	}
 	m.SetFrom(from)
 	m.AddContent(content)
 
