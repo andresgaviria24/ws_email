@@ -1,7 +1,6 @@
 package service
 
 import (
-	"encoding/base64"
 	"fmt"
 	"log"
 	"os"
@@ -68,7 +67,7 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 	content := mail.NewContent("text/html", email.Body)
 	if len(email.AttachBase64) > 0 {
 		attachment := mail.NewAttachment()
-		attachment.SetContent(base64.StdEncoding.EncodeToString([]byte(email.AttachBase64)))
+		attachment.SetContent(email.AttachBase64)
 		attachment.SetType("application/pdf")
 		if len(email.NameAttach) > 0 {
 			email.NameAttach = uuid.New().String()
