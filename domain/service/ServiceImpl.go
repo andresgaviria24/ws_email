@@ -103,7 +103,7 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 	client := resty.New()
 	resp, err := client.R().
 		SetHeader("content-type", "application/json").
-		SetHeader("api-key", os.Getenv("API_KEY")).
+		SetHeader("api-key", os.Getenv("API_KEY_BREVO")).
 		SetHeader("accept", "application/json").
 		SetBody(sendEmail).
 		Post("https://api.brevo.com/v3/smtp/email")
