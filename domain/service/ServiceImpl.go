@@ -97,7 +97,7 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 	htmlString := strings.ReplaceAll(email.Body, `"`, `\"`)
 	htmlString = strings.ReplaceAll(htmlString, "\n", "")
 	htmlString = strings.ReplaceAll(htmlString, " ", "")
-
+	email.Body = htmlString
 	sendEmail.HTMLContent = htmlString
 
 	sendEmail.Sender = dto.InfoEmail{
