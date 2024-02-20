@@ -1,6 +1,7 @@
 package service
 
 import (
+	"html"
 	"log"
 	"os"
 	"strings"
@@ -11,6 +12,7 @@ import (
 	"ws_notifications_email/utils"
 
 	"github.com/go-resty/resty/v2"
+	"github.com/k3a/html2text"
 )
 
 const (
@@ -93,7 +95,10 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 	response, err := sendgrid.API(request)*/
 
 	sendEmail.Subject = email.Subject
-	sendEmail.HTMLContent = email.Body
+	plain := html2text.HTML2Text(email.Body)
+
+	//sendEmail.HTMLContent = html.EscapeString(email.Body)
+	sendEmail.HTMLContent = html.EscapeString(plain)
 
 	sendEmail.Sender = dto.InfoEmail{
 		Name:  "No-Reply",
