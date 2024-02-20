@@ -1,6 +1,7 @@
 package service
 
 import (
+	"html"
 	"log"
 	"os"
 	"strings"
@@ -93,12 +94,10 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 	response, err := sendgrid.API(request)*/
 
 	sendEmail.Subject = email.Subject
-	//sendEmail.HTMLContent = html.EscapeString(email.Body)
-	htmlString := strings.ReplaceAll(email.Body, `"`, `\"`)
-	htmlString = strings.ReplaceAll(htmlString, "\n", "")
-	htmlString = strings.ReplaceAll(htmlString, " ", "")
-	email.Body = htmlString
-	sendEmail.HTMLContent = htmlString
+	sendEmail.HTMLContent = html.EscapeString(email.Body)
+	//htmlString := strings.ReplaceAll(email.Body, `"`, `\"`)
+	email.Body = sendEmail.HTMLContent
+	//sendEmail.HTMLContent = htmlString
 
 	sendEmail.Sender = dto.InfoEmail{
 		Name:  "No-Reply",
