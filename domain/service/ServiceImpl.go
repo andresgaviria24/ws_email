@@ -2,7 +2,6 @@ package service
 
 import (
 	"log"
-	"os"
 	"strings"
 	"ws_notifications_email/domain/dto"
 	"ws_notifications_email/domain/entity"
@@ -100,7 +99,8 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 	email.Body = htmlString
 	sendEmail.HTMLContent = htmlString*/
 	//htmlString := strings.ReplaceAll(email.Body, `"`, `\"`)
-	sendEmail.HTMLContent = email.Body
+	sendEmail.HTMLContent = strings.ReplaceAll(email.Body, `"`, `\"`)
+	//sendEmail.HTMLContent = email.Body
 
 	sendEmail.Sender = dto.InfoEmail{
 		Name:  "No-Reply",
