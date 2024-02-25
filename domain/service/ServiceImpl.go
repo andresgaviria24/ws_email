@@ -2,6 +2,7 @@ package service
 
 import (
 	"log"
+	"os"
 	"strings"
 	"ws_notifications_email/domain/dto"
 	"ws_notifications_email/domain/entity"
