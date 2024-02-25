@@ -2,7 +2,6 @@ package service
 
 import (
 	"log"
-	"os"
 	"strings"
 	"ws_notifications_email/domain/dto"
 	"ws_notifications_email/domain/entity"
@@ -35,20 +34,6 @@ func InitServiceImpl() *ServiceImpl {
 
 func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 
-	//emailsTo := strings.Join(email.To, ";")
-
-	/*response := rest.Post(os.Getenv("API_URL")+"?apikey="+os.Getenv("API_KEY")+"&subject="+
-	email.Subject+"&from="+os.Getenv("MAIL_USER")+"&fromName="+os.Getenv("MAIL_NAME")+"&to="+
-	emailsTo+"&bodyHtml='"+email.Body+"'", nil)*/
-
-	/*from := mail.NewEmail("no-reply", "noreply.message2022@gmail.com")
-	subject := "Sending with SendGrid is Fun"
-	to := mail.NewEmail("Example User", "warhammerjj28@gmail.com;andres_felipe_gaviria28@hotmail.com")*/
-
-	/*m := mail.NewV3Mail()
-
-	personalization := mail.NewPersonalization()*/
-
 	sendEmail := new(dto.EmailBrevo)
 
 	for _, m := range email.To {
@@ -57,51 +42,17 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 			Name:  m,
 			Email: m,
 		})
-		/*personalization.AddTos(&mail.Email{
-			Name:    "",
-			Address: m,
-		})*/
 	}
 
-	//personalization.Subject = email.Subject
-
-	//m.AddPersonalizations(personalization)
-
-	/*from := mail.NewEmail(os.Getenv("MAIL_NAME"), os.Getenv("MAIL_USER"))
-	content := mail.NewContent("text/html", email.Body)*/
 	if len(email.AttachBase64) > 0 {
-		/*attachment := mail.NewAttachment()
-		attachment.SetContent(email.AttachBase64)
-		attachment.SetType("application/pdf")
-		if len(email.NameAttach) > 0 {
-			email.NameAttach = uuid.New().String()
-		}
-		attachment.SetFilename(email.NameAttach + ".pdf")
-		attachment.SetDisposition("attachment")
-		m.AddAttachment(attachment)*/
 		sendEmail.Attachment = append(sendEmail.Attachment, dto.Attachment{
 			Content: email.AttachBase64,
 			Name:    email.NameAttach + ".pdf",
 		})
 	}
-	/*m.SetFrom(from)
-	m.AddContent(content)*/
-
-	/*request := sendgrid.GetRequest(os.Getenv("API_KEY"), "/v3/mail/send", "https://api.sendgrid.com")
-	request.Method = "POST"
-	request.Body = mail.GetRequestBody(m)
-	response, err := sendgrid.API(request)*/
-
 	sendEmail.Subject = email.Subject
-	/*sendEmail.HTMLContent = html.EscapeString(email.Body)
-	htmlString := strings.ReplaceAll(email.Body, `"`, `\"`)
-	/*htmlString = strings.ReplaceAll(htmlString, "\n", " ")
-	htmlString = strings.ReplaceAll(htmlString, `\'`, `\'`)
-	email.Body = htmlString
-	sendEmail.HTMLContent = htmlString*/
-	//htmlString := strings.ReplaceAll(email.Body, `"`, `\"`)
-	sendEmail.HTMLContent = strings.ReplaceAll(email.Body, `"`, `\"`)
-	//sendEmail.HTMLContent = email.Body
+	htmlString := strings.ReplaceAll(email.Body, "\n", " ")
+	sendEmail.HTMLContent = htmlString
 
 	sendEmail.Sender = dto.InfoEmail{
 		Name:  "No-Reply",
