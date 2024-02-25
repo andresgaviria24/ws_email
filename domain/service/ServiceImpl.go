@@ -93,12 +93,14 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 	response, err := sendgrid.API(request)*/
 
 	sendEmail.Subject = email.Subject
-	//sendEmail.HTMLContent = html.EscapeString(email.Body)
+	/*sendEmail.HTMLContent = html.EscapeString(email.Body)
 	htmlString := strings.ReplaceAll(email.Body, `"`, `\"`)
-	htmlString = strings.ReplaceAll(htmlString, "\n", " ")
-	htmlString = strings.ReplaceAll(htmlString, `\'`, `'`)
+	/*htmlString = strings.ReplaceAll(htmlString, "\n", " ")
+	htmlString = strings.ReplaceAll(htmlString, `\'`, `\'`)
 	email.Body = htmlString
-	sendEmail.HTMLContent = htmlString
+	sendEmail.HTMLContent = htmlString*/
+	//htmlString := strings.ReplaceAll(email.Body, `"`, `\"`)
+	sendEmail.HTMLContent = email.Body
 
 	sendEmail.Sender = dto.InfoEmail{
 		Name:  "No-Reply",
@@ -118,7 +120,7 @@ func (cd *ServiceImpl) SendEmail(email dto.Email) *dto.Response {
 	log := entity.Log{
 		To:      strings.Join(email.To, ";"),
 		System:  email.System,
-		Body:    email.Body,
+		Body:    sendEmail.HTMLContent,
 		Date:    utils.TimeNow(),
 		Status:  SUCCESSFUL,
 		Subject: email.Subject,
